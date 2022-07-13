@@ -1,20 +1,12 @@
-module "metrics_server" {
-  source  = "lablabs/eks-metrics-server/aws"
-  version = "1.0.0"
 
-  enabled           = true
-  argo_enabled      = false
-  argo_helm_enabled = false
 
-  helm_release_name = "metrics-server"
-  namespace         = "kube-system"
+resource "helm_release" "metrics_server" {
+  name       = "metrics-server"
+  repository = "https://kubernetes-sigs.github.io/metrics-server"
+  chart      = "metrics-server"
+  namespace  = "kube-system"
+  version    = "3.8.2"
 
-  values = yamlencode({
-    "podLabels" : {
-      "app" : "metrics-server"
-    }
-  })
+  timeout          = 300
 
-  helm_timeout = 240
-  helm_wait    = true
 }
