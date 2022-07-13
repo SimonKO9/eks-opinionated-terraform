@@ -61,17 +61,17 @@ resource "helm_release" "ingress_nginx" {
   timeout          = 301
 
   set {
-    name = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
+    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
     value = "external"
   }
 
   set {
-    name = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-scheme"
+    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-scheme"
     value = "internet-facing"
   }
 
   set {
-    name = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-nlb-target-type"
+    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-nlb-target-type"
     value = "instance"
   }
 

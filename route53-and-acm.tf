@@ -3,7 +3,7 @@ locals {
 }
 
 data "aws_route53_zone" "domain_zone" {
-  name   = "${local.domain_name}."
+  name = "${local.domain_name}."
 }
 
 module "acm" {
