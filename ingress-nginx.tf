@@ -46,10 +46,13 @@ resource "helm_release" "aws_load_balancer_controller" {
     value = kubernetes_service_account.aws_load_balancer_controller.metadata[0].name
   }
 
-  timeout = 120
+  timeout = 300
 
 }
 
+locals {
+
+}
 resource "helm_release" "ingress_nginx" {
   name       = "ingress-nginx"
   repository = "https://kubernetes.github.io/ingress-nginx"
@@ -58,36 +61,12 @@ resource "helm_release" "ingress_nginx" {
   version    = "4.2.0"
 
   create_namespace = true
-  timeout          = 301
-
-  set {
-    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-type"
-    value = "external"
-  }
-
-  set {
-    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-scheme"
-    value = "internet-facing"
-  }
-
-  set {
-    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-nlb-target-type"
-    value = "instance"
-  }
-
-  set {
-    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-backend-protocol"
-    value = "http"
-  }
+  timeout          = 300
+  values = [file("ingress-nginx-values.yaml")]
 
   set {
     name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-cert"
     value = module.acm.acm_certificate_arn
-  }
-
-  set {
-    name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-ports"
-    value = "https"
   }
 
 }
