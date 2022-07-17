@@ -4,6 +4,7 @@ data "aws_availability_zones" "available" {}
 locals {
   vpc_name     = "simon-eks-vpc"
   cluster_name = "simon-eks-cluster"
+  bastion_host_enabled = false
 }
 
 module "vpc" {
@@ -48,7 +49,7 @@ module "bastion" {
   version = "0.30.0"
 
   name                        = "aws-bastion"
-  enabled                     = true
+  enabled                     = local.bastion_host_enabled
   instance_type               = "t2.micro"
   security_groups             = [module.vpc.default_security_group_id]
   subnets                     = module.vpc.public_subnets
