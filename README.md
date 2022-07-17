@@ -16,3 +16,4 @@ EKS cluster example
 1. `terraform destroy` will fail unless NLB is manually cleaned first: https://github.com/kubernetes/kubernetes/issues/93390.
 An alternative is to abandon AWS LB Controller and provision the NLB with Terraform, which is not a bad thing.
 2. NLB is handling SSL termination. In some scenarios one may want to handle SSL in NGINX (ingress-nginx). A cert-manager with TLS-enabled NGINX would be desired here and NLB would simply forward traffic.
+3. The A record, added automatically for provisioned NLB, is not automatically removed when cluster is deleted.
