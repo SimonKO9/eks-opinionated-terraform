@@ -62,7 +62,7 @@ resource "helm_release" "ingress_nginx" {
 
   create_namespace = true
   timeout          = 300
-  values = [file("ingress-nginx-values.yaml")]
+  values           = [file("ingress-nginx-values.yaml")]
 
   set {
     name  = "controller.service.annotations.service\\.beta\\.kubernetes\\.io/aws-load-balancer-ssl-cert"

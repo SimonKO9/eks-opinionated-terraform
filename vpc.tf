@@ -2,8 +2,8 @@
 data "aws_availability_zones" "available" {}
 
 locals {
-  vpc_name     = "simon-eks-vpc"
-  cluster_name = "simon-eks-cluster"
+  vpc_name             = "simon-eks-vpc"
+  cluster_name         = "simon-eks-cluster"
   bastion_host_enabled = false
 }
 
@@ -39,6 +39,7 @@ module "aws_key_pair" {
   source  = "cloudposse/key-pair/aws"
   version = "0.18.0"
 
+  enabled             = false
   attributes          = ["ssh", "key"]
   ssh_public_key_path = "./secrets" # expects a key at ./secrets/ssh-key.pub
   generate_ssh_key    = false

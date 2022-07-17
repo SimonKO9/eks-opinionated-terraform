@@ -5,6 +5,6 @@ resource "helm_release" "metrics_server" {
   namespace  = "kube-system"
   version    = "3.8.2"
 
-  timeout          = 300
+  timeout = 300
 
 }
