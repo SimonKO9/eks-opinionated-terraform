@@ -17,3 +17,11 @@ EKS cluster example
 An alternative is to abandon AWS LB Controller and provision the NLB with Terraform, which is not a bad thing.
 2. NLB is handling SSL termination. In some scenarios one may want to handle SSL in NGINX (ingress-nginx). A cert-manager with TLS-enabled NGINX would be desired here and NLB would simply forward traffic.
 3. The A record, added automatically for provisioned NLB, is not automatically removed when cluster is deleted.
+
+# Ideas for improvement
+
+1. Abandon AWS LB Controller. It's more trouble than help when used together with Terraform.
+2. Handle SSL termination in NGINX and Kubernetes instead of NLB is definitely more flexible.
+3. Manage DNS records in Route 53 using Terraform rather than using External DNS, as things are not cleaned up automatically.
+4. Add monitoring module with Prometheus and Grafana, and maybe VictoriaMetrics for metrics long-term persistence.
+5. Add a service mesh module, probably [Linkerd2](https://linkerd.io/), as it's very lightweight, improves security and provides observability of cluster communication.
